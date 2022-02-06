@@ -170,8 +170,8 @@ campsiteRouter.route('/:campsiteId/comments/:commentId')
     .put(authenticate.verifyUser, (req, res, next) => {
         Campsite.findById(req.params.campsiteId)
             .then(campsite => {
-                if (req.user._id = campsite.comments.id(req.params.commentId).author) {
-                    if (campsite && campsite.comments.id(req.params.commentId)) {
+                if (campsite && campsite.comments.id(req.params.commentId)) {
+                    if (req.user._id === campsite.comments.id(req.params.commentId).author) {
                         if (req.body.rating) {
                             campsite.comments.id(req.params.commentId).rating = req.body.rating;
                         }
@@ -207,8 +207,8 @@ campsiteRouter.route('/:campsiteId/comments/:commentId')
             .then(campsite => {
                 console.log(req.user._id)
                 console.log(campsite.comments.id(req.params.commentId).author)
-                if (req.user._id = campsite.comments.id(req.params.commentId).author) {
-                    if (campsite && campsite.comments.id(req.params.commentId)) {
+                if (campsite && campsite.comments.id(req.params.commentId)) {
+                    if (req.user._id === campsite.comments.id(req.params.commentId).author) {
                         campsite.comments.id(req.params.commentId).remove();
                         campsite.save()
                             .then(campsite => {
