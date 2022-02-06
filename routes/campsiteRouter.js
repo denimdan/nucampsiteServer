@@ -207,8 +207,9 @@ campsiteRouter.route('/:campsiteId/comments/:commentId')
             .then(campsite => {
                 console.log(req.user._id)
                 console.log(campsite.comments.id(req.params.commentId).author)
-                if (campsite && campsite.comments.id(req.params.commentId)) {
-                    if (req.user._id === campsite.comments.id(req.params.commentId).author) {
+                // if (req.user._id === campsite.comments.id(req.params.commentId).author) {
+                if (campsite.comments.id(req.params.commentId).author.equals(req.user._id)) {
+                    if (campsite && campsite.comments.id(req.params.commentId)) {
                         campsite.comments.id(req.params.commentId).remove();
                         campsite.save()
                             .then(campsite => {
